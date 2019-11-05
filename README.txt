@@ -1,5 +1,7 @@
 To run the app: 
 go to the main app folder - and run "dotnet run".
+The output will show the localhost it is listing on to 
+(https://localhost:5001/ - open chrome on that port) 
 
 Please note: 
 
