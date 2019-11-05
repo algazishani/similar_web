@@ -1,6 +1,7 @@
 import { Video, PlaylistService } from './../playlist.service';
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { catchError, concat, mergeMap } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import uuidv1 from 'uuid';
 
 @Component({
@@ -8,7 +9,7 @@ import uuidv1 from 'uuid';
   templateUrl: './playlist.component.html',
   styleUrls: ['./playlist.component.scss']
 })
-export class PlaylistComponent implements OnInit {
+export class PlaylistComponent implements OnInit, OnDestroy {
   playlist: Video[] = [];
   constructor(
     private playlistSerivce: PlaylistService,
@@ -25,15 +26,22 @@ export class PlaylistComponent implements OnInit {
       }
     });
 
-    this.playlistSerivce.removedVideo.subscribe(video =>
-      this.playlistSerivce.deleteVideo(video).subscribe(res => {
-        this.playlist = this.playlist.filter(v => v.id !== video.id);
-        if (this.playlist.length !== 0) {
-          this.playlistSerivce.setCurrentVideo(this.playlist[0]);
-        }
-        this.cd.detectChanges();
-      })
-    );
+    // Listing to removed video -> then calling the service to remove that video
+    // if Ok, then delete from playlist
+    this.playlistSerivce.removedVideo.subscribe(video => {
+      this.playlistSerivce
+        .deleteVideo(video)
+        .pipe(catchError(e => of(console.log(e))))
+        .subscribe(() => this.handleSuccess(video));
+    });
+  }
+
+  handleSuccess(video: Video) {
+    this.playlist = this.playlist.filter(v => v.id !== video.id);
+    if (this.playlist.length !== 0) {
+      this.playlistSerivce.setCurrentVideo(this.playlist[0]);
+    }
+    this.cd.detectChanges();
   }
 
   /**
@@ -75,5 +83,9 @@ export class PlaylistComponent implements OnInit {
       };
       return newVideo;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.playlistSerivce.removedVideo.unsubscribe();
   }
 }
