@@ -3,8 +3,7 @@ import { PlaylistService } from '../playlist.service';
 
 @Component({
   selector: 'app-player',
-  templateUrl: './player.component.html',
-  styleUrls: ['./player.component.scss']
+  templateUrl: './player.component.html'
 })
 export class PlayerComponent implements OnInit, OnDestroy {
   player;
