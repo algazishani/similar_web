@@ -71,7 +71,7 @@ export class PlaylistService {
       duration: ''
     };
     // Assuming the API key is not hard coded.
-    const api = `https://www.googleapis.com/youtube/v3/videos?id=${id}key=AIzaSyAqOSbAJVk7UynMkBJJwQ1Cem8xhUvg6Kc&part=snippet,contentDetails`;
+    const api = `https://www.googleapis.com/youtube/v3/videos?id=${id}key=********&part=snippet,contentDetails`;
     this.http.get<any>(api).subscribe(res => {
       p.title = res.items[0].snippet.title;
       p.duration = res.items[0].contentDetails.duration; //moment.duration(duration, moment.ISO_8601);
