@@ -1,0 +1,9 @@
+.playlist-container {
+  flex-direction: column;
+  display: flex;
+  height: 100%;
+  .list {
+    overflow-y: scroll;
+    height: 100%;
+  }
+}

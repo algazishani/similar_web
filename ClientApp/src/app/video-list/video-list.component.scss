@@ -1,0 +1,21 @@
+.mat-list-base {
+  margin: 10px;
+  .card-container {
+    position: relative;
+    cursor: pointer;
+
+    .card {
+      width: 350px;
+      .card-text {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+    }
+    .delete-icon {
+      position: absolute;
+      right: 0;
+      top: 15px;
+    }
+  }
+}

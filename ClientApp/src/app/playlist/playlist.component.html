@@ -1,0 +1,11 @@
+<div class="playlist-container">
+  <div>
+    <app-input (addVideo)="onAddVideo($event)"></app-input>
+  </div>
+  <div class="list">
+    <app-video-list
+      [playlist]="playlist"
+      (delete)="handleDelete(url)"
+    ></app-video-list>
+  </div>
+</div>

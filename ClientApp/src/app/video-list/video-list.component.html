@@ -1,0 +1,15 @@
+<mat-list *ngFor="let video of playlist">
+  <div class="card-container">
+    <mat-card
+      class="card"
+      matRipple
+      [matRippleColor]="white"
+      (click)="handleClick(video)"
+    >
+      <div class="card-text">{{ video.url }}</div></mat-card
+    >
+    <i class="material-icons delete-icon" (click)="handleDelete(video)"
+      >delete
+    </i>
+  </div></mat-list
+>

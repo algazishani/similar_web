@@ -1,0 +1,20 @@
+<form class="form" #f="ngForm" (ngSubmit)="addVideo.emit(url.value)" novalidate>
+  <mat-form-field class="input">
+    <div>
+      <input
+        class="input-text"
+        matInput
+        placeholder="Insert url"
+        [formControl]="url"
+        pattern="(https?:\/\/(.+?\.)?youtube\.com(\/[A-Za-z0-9\-\._~:\/\?#\[\]@!$&'\(\)\*\+,;\=]*)?)"
+      />
+    </div>
+  </mat-form-field>
+
+  <div *ngIf="url.errors?.pattern">
+    the url is not valid youtube url.
+  </div>
+  <button mat-raised-button color="primary" [disabled]="url.errors?.pattern">
+    Add
+  </button>
+</form>
